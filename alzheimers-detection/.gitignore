@@ -1,0 +1,36 @@
+# --- Never commit real or approved-access clinical/research data ---
+data/
+*.cha
+*.wav
+*.mp3
+!tests/**/*.wav
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Models (large binaries; download at runtime, don't commit) ---
+*.pt
+*.onnx
+*.bin
+models/
+
+# --- Env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Editor/OS ---
+.vscode/
+.idea/
+.DS_Store

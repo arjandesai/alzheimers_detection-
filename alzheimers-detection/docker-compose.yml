@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ALZDX_ENVIRONMENT: development
+      ALZDX_ASR_BACKEND: faster_whisper
+      ALZDX_ASR_MODEL_SIZE: base
+      ALZDX_KEEP_UPLOADED_AUDIO: "false"
+    volumes:
+      # Mount a local, gitignored data directory for anyone who has their
+      # own approved DementiaBank/ADReSS access -- never baked into the image.
+      - ./data:/app/data:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
