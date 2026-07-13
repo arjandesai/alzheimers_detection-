@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speech test · Verity</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%276%27 fill=%27%237fb3d5%27/%3E%3Cpath d=%27M5 6 L11.5 17 L19 5%27 stroke=%27white%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3Ccircle cx=%2711.5%27 cy=%2717%27 r=%271.5%27 fill=%27white%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><div class="logo-mark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5 L11 17 L20 4" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="17" r="1.5" fill="white"/></svg></div>Verity</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="tests.html" class="active">Tests</a>
+      <a href="dashboard.html">Dashboard</a>
+    <a href="games.html">Games</a>
+    <a href="about.html">About</a>
+    </div>
+    <div class="nav-right"><span id="theme-toggle-slot"></span><span id="nav-user-slot"></span></div>
+  </nav>
+</header>
+
+<div class="page-header">
+  <h1>Speech test</h1>
+  <p>Describe the scene below out loud for at least 30 seconds, at a natural pace — or upload a recording instead.</p>
+</div>
+
+<section>
+  <div class="container">
+    <div class="runner-card" id="runner">
+      <p class="prompt-box">"A woman is washing dishes at an overflowing sink while two children sneak cookies from a jar behind her back."</p>
+
+      <p id="speech-status" style="text-align:center;color:var(--text-soft);margin:0 0 6px;">Press start and allow microphone access, or upload a recording instead.</p>
+      <div class="timer" id="speech-timer">00:00</div>
+      <div class="vol-bar"><div class="vol-bar-fill" id="speech-vol"></div></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-primary" id="speech-start-btn" style="flex:1;" onclick="beginRecording()">Start recording</button>
+        <button class="btn btn-secondary" id="speech-stop-btn" style="flex:1;display:none;" onclick="stopRecording()">Stop &amp; analyze</button>
+      </div>
+
+      <div class="divider"><div></div>or<div></div></div>
+      <label class="btn btn-secondary" style="width:100%;display:block;text-align:center;cursor:pointer;">
+        Upload an audio file instead
+        <input type="file" accept="audio/*" id="speech-upload" style="display:none;" onchange="handleAudioUpload(event)">
+      </label>
+      <p id="speech-upload-status" style="text-align:center;color:var(--text-soft);font-size:12px;margin:8px 0 0;"></p>
+
+      <a href="tests.html" class="btn btn-secondary" style="width:100%;margin-top:14px;display:block;text-align:center;">Cancel</a>
+    </div>
+
+    <div class="runner-card" id="result" style="display:none;margin-top:24px;"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">Verity</div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  var speechState = { stream:null, ctx:null, analyser:null, recorder:null, chunks:[], raf:null, startTime:0, samples:[] };
+
+  function beginRecording(){
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      document.getElementById('speech-status').textContent = "Your browser doesn't support microphone capture. Try uploading a file instead.";
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio:true }).then(function(stream){
+      speechState.stream = stream;
+      speechState.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var source = speechState.ctx.createMediaStreamSource(stream);
+      speechState.analyser = speechState.ctx.createAnalyser();
+      speechState.analyser.fftSize = 1024;
+      source.connect(speechState.analyser);
+
+      try{
+        speechState.recorder = new MediaRecorder(stream);
+        speechState.recorder.ondataavailable = function(e){ speechState.chunks.push(e.data); };
+        speechState.recorder.start();
+      }catch(e){ /* MediaRecorder unsupported: still measure volume/timing */ }
+
+      speechState.startTime = Date.now();
+      document.getElementById('speech-status').innerHTML = '<span class="rec-dot"></span>Recording — speak naturally';
+      document.getElementById('speech-start-btn').style.display = 'none';
+      document.getElementById('speech-stop-btn').style.display = 'block';
+      tickSpeechMeter();
+    }).catch(function(){
+      document.getElementById('speech-status').textContent = 'Microphone access was blocked. Allow access in your browser, or upload a recording instead.';
+    });
+  }
+
+  function tickSpeechMeter(){
+    var data = new Uint8Array(speechState.analyser.frequencyBinCount);
+    speechState.analyser.getByteTimeDomainData(data);
+    var sumSq = 0;
+    for(var i=0;i<data.length;i++){ var v=(data[i]-128)/128; sumSq += v*v; }
+    var rms = Math.sqrt(sumSq/data.length);
+    speechState.samples.push(rms);
+
+    var fill = document.getElementById('speech-vol');
+    if(fill) fill.style.width = (Math.min(1, rms*6)*100).toFixed(0) + '%';
+
+    var elapsed = Math.floor((Date.now() - speechState.startTime)/1000);
+    var mm = String(Math.floor(elapsed/60)).padStart(2,'0');
+    var ss = String(elapsed%60).padStart(2,'0');
+    var timerEl = document.getElementById('speech-timer');
+    if(timerEl) timerEl.textContent = mm+':'+ss;
+
+    speechState.raf = requestAnimationFrame(tickSpeechMeter);
+  }
+
+  function teardownSpeech(){
+    if(speechState.raf) cancelAnimationFrame(speechState.raf);
+    if(speechState.recorder && speechState.recorder.state !== 'inactive') speechState.recorder.stop();
+    if(speechState.stream) speechState.stream.getTracks().forEach(function(t){ t.stop(); });
+    if(speechState.ctx && speechState.ctx.state !== 'closed') speechState.ctx.close();
+  }
+
+  function stopRecording(){
+    if(speechState.raf) cancelAnimationFrame(speechState.raf);
+    var durationMs = Date.now() - speechState.startTime;
+    teardownSpeech();
+
+    if(durationMs < 3000 || speechState.samples.length < 10){
+      document.getElementById('speech-status').textContent = 'Recording too short — please speak for at least a few seconds. Try again.';
+      document.getElementById('speech-start-btn').style.display = 'block';
+      document.getElementById('speech-start-btn').textContent = 'Retry recording';
+      document.getElementById('speech-stop-btn').style.display = 'none';
+      return;
+    }
+    var metrics = computeSpeechMetrics(speechState.samples, durationMs/1000);
+
+    // The audio itself was already being captured via MediaRecorder for no
+    // reason — it was measured for its volume envelope and then thrown
+    // away. Turning the collected chunks into a playable clip so you can
+    // actually hear the recording your scores came from.
+    var audioUrl = null;
+    if(speechState.chunks.length){
+      var blob = new Blob(speechState.chunks, { type: (speechState.recorder && speechState.recorder.mimeType) || 'audio/webm' });
+      audioUrl = URL.createObjectURL(blob);
+    }
+    finishSpeechTest(metrics, audioUrl);
+  }
+
+  function handleAudioUpload(event){
+    var file = event.target.files && event.target.files[0];
+    if(!file) return;
+    var status = document.getElementById('speech-upload-status');
+    status.textContent = 'Analyzing "' + file.name + '"...';
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var AudioCtx = window.AudioContext || window.webkitAudioContext;
+      var ctx = new AudioCtx();
+      ctx.decodeAudioData(e.target.result).then(function(buffer){
+        var durationSec = buffer.duration;
+        if(durationSec < 3){
+          status.textContent = 'That clip is too short — please upload at least a few seconds of speech.';
+          ctx.close();
+          return;
+        }
+        var channel = buffer.getChannelData(0);
+        var hopSize = Math.max(1, Math.floor(0.02 * buffer.sampleRate));
+        var samples = [];
+        for(var i=0; i<channel.length; i+=hopSize){
+          var end = Math.min(channel.length, i+hopSize);
+          var sumSq = 0;
+          for(var j=i;j<end;j++) sumSq += channel[j]*channel[j];
+          samples.push(Math.sqrt(sumSq/(end-i)));
+        }
+        var metrics = computeSpeechMetrics(samples, durationSec);
+        finishSpeechTest(metrics, URL.createObjectURL(file));
+        ctx.close();
+      }).catch(function(){
+        status.textContent = 'Could not read that file — try a WAV, MP3, or M4A recording.';
+        ctx.close();
+      });
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function finishSpeechTest(metrics, audioUrl){
+    var probability = probabilityFromSpeechMetrics(metrics);
+    // Not persisted to history/localStorage — audio clips are too large to
+    // store safely alongside everything else and would risk blowing the
+    // storage quota (which would silently break saving new results). The
+    // player only lives for this page view.
+    addHistoryEntry({ modality:'speech', probability:probability, band:bandFor(probability), metrics:metrics });
+
+    document.getElementById('runner').style.display = 'none';
+    var result = document.getElementById('result');
+    result.style.display = 'block';
+    result.innerHTML =
+      '<h3 style="text-align:center;margin:0 0 4px;">Speech test — deep breakdown</h3>' +
+      (audioUrl ? '<div style="text-align:center;margin:0 0 18px;"><audio controls src="' + audioUrl + '" style="width:100%;max-width:420px;"></audio><p style="font-size:11px;color:var(--text-soft);margin:6px 0 0;">Playback only — not saved to your history.</p></div>' : '') +
+      speechBreakdownHtml(metrics, probability) +
+      '<div style="display:flex;gap:10px;">' +
+        '<a href="dashboard.html" class="btn btn-primary" style="flex:1;text-align:center;">View dashboard</a>' +
+        '<a href="speech.html" class="btn btn-secondary" style="flex:1;text-align:center;">Retake test</a>' +
+      '</div>';
+    result.scrollIntoView({behavior:'smooth'});
+    if(bandFor(probability) === 'typical') celebrateTypicalResult();
+  }
+</script>
+</body>
+</html>
