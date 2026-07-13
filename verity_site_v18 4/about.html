@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About &amp; methodology · Verity</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%276%27 fill=%27%237fb3d5%27/%3E%3Cpath d=%27M5 6 L11.5 17 L19 5%27 stroke=%27white%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3Ccircle cx=%2711.5%27 cy=%2717%27 r=%271.5%27 fill=%27white%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><div class="logo-mark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5 L11 17 L20 4" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="17" r="1.5" fill="white"/></svg></div>Verity</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="tests.html">Tests</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="games.html">Games</a>
+    <a href="about.html" class="active">About</a>
+    </div>
+    <div class="nav-right"><span id="theme-toggle-slot"></span><span id="nav-user-slot"></span></div>
+  </nav>
+</header>
+
+<div class="page-header">
+  <p class="typewriter-line" data-typewriter="Here's exactly how this works." style="text-align:center;"></p>
+  <h1>About &amp; methodology</h1>
+  <p>What Verity actually measures, what it doesn't, and where your data goes.</p>
+</div>
+
+<section>
+  <div class="container" style="max-width:760px;">
+
+    <div class="runner-card" style="max-width:none;margin-bottom:24px;">
+      <h3 style="margin:0 0 10px;">What this is</h3>
+      <p style="color:var(--text-soft);">Verity is a demo screening tool. It runs two short tests in your browser — a spoken picture description and a handwritten sentence copy — and computes simple timing/acoustic/motion markers from what you say and write. Those markers are compared against patterns that published research has associated with cognitive aging, and turned into a rough "pattern-match" percentage and band (typical / some markers / several markers).</p>
+    </div>
+
+    <div class="runner-card" style="max-width:none;margin-bottom:24px;">
+      <h3 style="margin:0 0 10px;">What we measure</h3>
+      <div class="markers" style="grid-template-columns:1fr 1fr;">
+        <div class="marker-card" style="border:1px solid var(--border);">
+          <h4>Speech</h4>
+          <p>Recording length, estimated speaking rate, time spent speaking vs. silent, number of pause segments, and vocal energy variability — all from acoustic timing, not a transcript.</p>
+        </div>
+        <div class="marker-card" style="border:1px solid var(--border);">
+          <h4>Handwriting</h4>
+          <p>Total writing time, stroke (pen-lift) count, average and variability of writing speed, and mid-stroke hesitations — captured from your pointer/touch input.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="runner-card" style="max-width:none;margin-bottom:24px;">
+      <h3 style="margin:0 0 10px;">Your data &amp; privacy</h3>
+      <p style="color:var(--text-soft);margin:0 0 10px;">Everything runs in your browser. Audio, handwriting strokes, and results are processed locally and never uploaded anywhere. Your account and screening history are saved to this browser's local storage only.</p>
+      <p style="color:var(--text-soft);margin:0 0 10px;">Passwords are salted and hashed (SHA-256 where your browser supports it) before being stored — never saved in plain text.</p>
+      <p style="color:var(--text-soft);">From your <a href="dashboard.html" style="color:var(--blue-deep);font-weight:600;">dashboard</a> you can export all your data as a JSON file, print a doctor-ready summary, or permanently delete your account and history.</p>
+    </div>
+
+    <div class="runner-card" style="max-width:none;margin-bottom:24px;">
+      <h3 style="margin:0 0 6px;">Non-drug approaches worth knowing about</h3>
+      <p style="color:var(--text-soft);margin:0 0 18px;">Verity doesn't provide treatment — but if a result (or a general concern) has you thinking about what actually helps, these are approaches with real research behind them. Discuss any of these with a doctor before starting, especially alongside an existing diagnosis or medication.</p>
+
+      <div class="approach-item">
+        <h4>Cognitive Stimulation Therapy (CST)</h4>
+        <p>A structured program of group activities and discussion designed to actively engage thinking, memory, and social interaction, typically run twice a week over several weeks. It's one of the few non-drug interventions for mild-to-moderate dementia backed by randomized controlled trials, and it's the only non-drug treatment the UK's NICE guidelines recommend for that stage of dementia. Usually delivered by a trained facilitator — ask a doctor or memory clinic about local or online programs.</p>
+      </div>
+
+      <div class="approach-item">
+        <h4>Physical exercise</h4>
+        <p>Regular aerobic exercise and strength training are consistently linked to better cognitive health and may help preserve brain structure and function over time. It's one of the more strongly evidenced lifestyle factors across the research.</p>
+      </div>
+
+      <div class="approach-item">
+        <h4>Social engagement</h4>
+        <p>Staying socially connected — regular conversation, group activities, community involvement — is repeatedly associated with slower cognitive decline. It's also a core ingredient of CST itself.</p>
+      </div>
+
+      <div class="approach-item">
+        <h4>Diet (Mediterranean / MIND-style patterns)</h4>
+        <p>Diets emphasizing vegetables, fish, olive oil, nuts, and whole grains, with less red meat and processed food, show promising associations with cognitive health, likely related to their anti-inflammatory effects.</p>
+      </div>
+
+      <div class="approach-item">
+        <h4>Sleep &amp; vascular health</h4>
+        <p>Managing blood pressure, treating hearing loss, and prioritizing good sleep are increasingly recognized as modifiable dementia risk factors — addressing them is a reasonable, low-risk step regardless of test results.</p>
+      </div>
+
+      <div class="approach-item" style="border-bottom:none;">
+        <h4>Multidomain programs</h4>
+        <p>Combining several of the above — cognitive training, exercise, diet, and social activity together — appears to have additive benefits compared with any single approach alone, according to recent multidomain intervention trials.</p>
+      </div>
+
+      <p style="font-size:12px;color:var(--text-soft);margin:18px 0 0;line-height:1.6;">
+        Sources: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4958464/" target="_blank" rel="noopener" style="color:var(--blue-deep);">CST narrative review, NCBI</a> ·
+        <a href="https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2023.1131744/full" target="_blank" rel="noopener" style="color:var(--blue-deep);">Non-pharmacological therapies network meta-analysis, Frontiers</a> ·
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12336436/" target="_blank" rel="noopener" style="color:var(--blue-deep);">Multidomain dementia prevention review, PMC</a> ·
+        <a href="https://www.nia.nih.gov/about/2025-nih-dementia-research-progress-report" target="_blank" rel="noopener" style="color:var(--blue-deep);">NIH 2025 Alzheimer's research progress report</a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">Verity</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

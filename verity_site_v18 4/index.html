@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verity — Simple Cognitive Health Screening</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%276%27 fill=%27%237fb3d5%27/%3E%3Cpath d=%27M5 6 L11.5 17 L19 5%27 stroke=%27white%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 fill=%27none%27/%3E%3Ccircle cx=%2711.5%27 cy=%2717%27 r=%271.5%27 fill=%27white%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><div class="logo-mark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5 L11 17 L20 4" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="17" r="1.5" fill="white"/></svg></div>Verity</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="tests.html">Tests</a>
+      <a href="dashboard.html">Dashboard</a>
+    <a href="games.html">Games</a>
+    <a href="about.html">About</a>
+    </div>
+    <div class="nav-right"><span id="theme-toggle-slot"></span><span id="nav-user-slot"></span></div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <p class="typewriter-line" data-typewriter="Two minutes. No appointment. Just a plain-language check-in."></p>
+    <h1>A calmer way to check in<br>on your <span class="flip-word" id="flip-word"></span></h1>
+    <p>Verity is a simple screening tool that listens to your speech and watches how you write, then reports what it finds in plain language.</p>
+    <div class="hero-actions">
+      <a href="signup.html" class="btn btn-primary magnetic-btn">Create free account</a>
+      <a href="tests.html" class="btn btn-secondary magnetic-btn">Try a test now</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>See it in action</h2>
+      <p>A quick look at each part of Verity.</p>
+    </div>
+    <div class="clip-tabs">
+      <div class="clip-tab-buttons" id="clip-tab-buttons">
+        <button class="clip-tab-btn active" data-tab="speech">Speech test</button>
+        <button class="clip-tab-btn" data-tab="handwriting">Handwriting test</button>
+        <button class="clip-tab-btn" data-tab="dashboard">Dashboard</button>
+      </div>
+      <div class="clip-tab-stage" id="clip-tab-stage">
+        <div class="clip-tab-panel active" data-tab="speech">
+          <div class="clip-tab-mock speech-mock">
+            <div class="mock-timer">00:14</div>
+            <div class="mock-vol"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="mock-line"></div>
+            <div class="mock-line short"></div>
+          </div>
+        </div>
+        <div class="clip-tab-panel" data-tab="handwriting">
+          <div class="clip-tab-mock handwriting-mock">
+            <svg viewBox="0 0 300 120" width="100%" height="100%"><path d="M20 90 Q 60 20 100 80 T 180 70 T 260 90" stroke="#7fb3d5" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="clip-tab-panel" data-tab="dashboard">
+          <div class="clip-tab-mock dashboard-mock">
+            <div class="mock-bar" style="height:40%;"></div>
+            <div class="mock-bar" style="height:65%;"></div>
+            <div class="mock-bar" style="height:35%;"></div>
+            <div class="mock-bar" style="height:55%;"></div>
+            <div class="mock-bar" style="height:25%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Why people use Verity</h2>
+      <p>Built around a few simple ideas.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card tilt-card"><div class="feature-icon">⏱</div><h4>Takes minutes</h4><p>One speech test or one handwriting test, done from your browser.</p></div>
+      <div class="feature-card tilt-card"><div class="feature-icon">🔒</div><h4>Stays on your device</h4><p>Your history is saved locally in your browser, not on a server.</p></div>
+      <div class="feature-card tilt-card"><div class="feature-icon">📈</div><h4>Tracks trends</h4><p>See whether your markers are moving better or worse over repeated tests.</p></div>
+      <div class="feature-card tilt-card"><div class="feature-icon">🖨</div><h4>Doctor-ready</h4><p>Export a clean printable summary to bring to an appointment.</p></div>
+      <div class="feature-card tilt-card"><div class="feature-icon">🌗</div><h4>Light or dark</h4><p>Use whichever theme is easier on your eyes.</p></div>
+      <div class="feature-card tilt-card"><div class="feature-icon">🗣</div><h4>Plain language</h4><p>No jargon — every result explains what it means and why it matters.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="section-title">
+      <h2>Three simple steps</h2>
+      <p>No appointments, no waiting rooms. Just a few minutes of your day.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Record or write</h3>
+        <p>Describe a simple picture out loud, or copy a short sentence by hand on screen.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>We measure the patterns</h3>
+        <p>Pace, pauses, word choice, and stroke timing are measured against research-backed reference ranges.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Track it over time</h3>
+        <p>Every test is saved to your dashboard, so you can see whether your markers are trending better or worse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>What we actually measure</h2>
+      <p>Every result traces back to a specific, well-studied marker — never a black box.</p>
+    </div>
+    <div class="markers">
+      <div class="marker-card">
+        <div class="marker-dot"></div>
+        <h4>Speech pace &amp; pauses</h4>
+        <p>How quickly words come, and how much silence sits between them — one of the most consistent findings in cognitive aging research.</p>
+      </div>
+      <div class="marker-card">
+        <div class="marker-dot"></div>
+        <h4>Vocal energy variability</h4>
+        <p>How much your loudness varies through a sample, adjusted so recording quality doesn't skew the reading.</p>
+      </div>
+      <div class="marker-card">
+        <div class="marker-dot"></div>
+        <h4>Writing rhythm</h4>
+        <p>Stroke timing and hesitation while writing, captured without judging handwriting quality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="counters-row">
+      <div class="stat-counter"><div class="counter-num" data-target="2" data-suffix="">0</div><div class="counter-label">Screening types</div></div>
+      <div class="stat-counter"><div class="counter-num" data-target="5" data-suffix=" min">0</div><div class="counter-label">Typical time to complete</div></div>
+      <div class="stat-counter"><div class="counter-num" data-target="100" data-suffix="%">0</div><div class="counter-label">Data kept on your device</div></div>
+      <div class="stat-counter"><div class="counter-num" data-target="0" data-suffix="$">0</div><div class="counter-label">Cost to use</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Verity
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  /* Text flip — cycles the highlighted headline word/phrase, re-implementing
+     the ContainerTextFlip idea without framer-motion: fade+slide swap. */
+  (function(){
+    var el = document.getElementById('flip-word');
+    if(!el) return;
+    var words = ['cognitive health', 'memory', 'speech patterns', 'handwriting'];
+    var idx = 0;
+    el.textContent = words[0];
+    setInterval(function(){
+      idx = (idx + 1) % words.length;
+      el.classList.add('flip-out');
+      setTimeout(function(){
+        el.textContent = words[idx];
+        el.classList.remove('flip-out');
+        el.classList.add('flip-in');
+        setTimeout(function(){ el.classList.remove('flip-in'); }, 250);
+      }, 200);
+    }, 2600);
+  })();
+
+  /* Animated counters — count up from 0 to their target once scrolled
+     into view, instead of showing a static number. */
+  (function(){
+    var counters = document.querySelectorAll('.counter-num');
+    if(!counters.length) return;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function animate(el){
+      var target = parseFloat(el.getAttribute('data-target'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(reduced){ el.textContent = target + suffix; return; }
+      var start = performance.now(), dur = 900;
+      function step(now){
+        var p = Math.min(1, (now - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if('IntersectionObserver' in window){
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ animate(entry.target); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function(c){ obs.observe(c); });
+    } else {
+      counters.forEach(animate);
+    }
+  })();
+
+  /* Clipped tab showcase — re-implementation of the clipped-video-tab idea
+     (no real product video here, so it clips between illustrative mockup
+     panels) using clip-path instead of framer-motion. */
+  (function(){
+    var buttonsWrap = document.getElementById('clip-tab-buttons');
+    if(!buttonsWrap) return;
+    var buttons = buttonsWrap.querySelectorAll('.clip-tab-btn');
+    var panels = document.querySelectorAll('.clip-tab-panel');
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var tab = btn.getAttribute('data-tab');
+        buttons.forEach(function(b){ b.classList.toggle('active', b === btn); });
+        panels.forEach(function(p){
+          var match = p.getAttribute('data-tab') === tab;
+          if(match){
+            p.classList.add('active');
+            p.style.clipPath = 'inset(0 0 0 0)';
+          } else {
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
