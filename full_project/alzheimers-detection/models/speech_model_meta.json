@@ -1,9 +1,0 @@
-{
-  "modality": "speech",
-  "features": "OpenSmile-GeMAPS (62 values, keys sorted alphabetically)",
-  "n_features": 62,
-  "validated_auc": 0.894,
-  "validated_balanced_accuracy": 0.835,
-  "validated_sensitivity": 0.781,
-  "note": "class-weighted logistic regression, EWA-DB, 87 AD / 1323 HC. Research screening tool, not a diagnosis."
-}
